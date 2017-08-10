@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <article class="container">
+    <div class="container">
       <div class="page-container">
         <!-- <router-view></router-view> -->
         <object data="http://www.dairiki.org/tides/monthly.php/sea" type="text/html" style="width:100%; height:100%;"></object>
@@ -8,7 +8,7 @@
       <div class="controls-container">
         <p>Some controls here!</p>
       </div>
-    </article>
+    </div>
   </div>
 </template>
 
@@ -19,8 +19,15 @@
 </script>
 
 <style lang="scss">
-  article.container {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
     display: flex;
+    height: 100vh;
 
     .page-container {
       flex: 3 0 auto;
