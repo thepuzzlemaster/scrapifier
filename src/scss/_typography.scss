@@ -1,0 +1,31 @@
+body {
+    color: $text-default;
+    font-family: Raleway, Helvetica, sans-serif;
+}
+
+.link,
+.btn,
+a {
+    color: $text-link-default;
+    cursor: pointer;
+
+    &:hover {
+        color: $text-link-hover;
+    }
+}
+
+.btn.btn-inverse {
+    border: 1px solid $text-link-default;
+    border-radius: 5px;
+    padding: .25em;
+
+    &:hover {
+        border-color: $text-link-inverse-dark;
+        color: $text-link-inverse-light;
+        background-color: $text-link-inverse-dark;
+    }
+}
+
+hr {
+    margin: 1em 0;
+}

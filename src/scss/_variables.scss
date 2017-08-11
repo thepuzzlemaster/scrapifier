@@ -1,0 +1,28 @@
+// COLORS
+
+// Main Primary color */
+$color-primary-0: #C4CDD1;
+$color-primary-1: #439ABB;
+$color-primary-2: #095E7E;	// Main Primary color */
+$color-primary-3: #033B50;
+$color-primary-4: #021117;
+
+$color-secondary-1-0: #CBCED7;
+$color-secondary-1-1: #5167C4;
+$color-secondary-1-2: #142B89;	// Main Secondary color (1) */
+$color-secondary-1-3: #091857;
+$color-secondary-1-4: #040819;
+
+$color-secondary-2-0: #CDDAD3;
+$color-secondary-2-1: #42C981;
+$color-secondary-2-2: #048E44;	// Main Secondary color (2) */
+$color-secondary-2-3: #005A2A;
+$color-secondary-2-4: #021A0D;
+// Text
+$text-default: $color-primary-4;
+
+// Links
+$text-link-default: $color-secondary-1-2;
+$text-link-hover: $color-secondary-1-3;
+$text-link-inverse-light: $color-secondary-1-0;
+$text-link-inverse-dark: $color-secondary-1-3;
