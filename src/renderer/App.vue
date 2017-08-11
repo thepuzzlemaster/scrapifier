@@ -1,24 +1,45 @@
 <template>
   <div id="app">
     <div class="container">
-      <div class="page-container">
+      <!-- <div id="page-container"> -->
         <!-- <router-view></router-view> -->
-        <object data="http://www.dairiki.org/tides/monthly.php/sea" type="text/html" style="width:100%; height:100%;"></object>
-      </div>
-      <div class="controls-container">
-        <p>Some controls here!</p>
-      </div>
+        <!-- <object id="external-page" :data="url" type="text/html" style="width:100%; height:100%;"></object> -->
+      <!-- </div> -->
+      <controls class="controls" :url="url"></controls>
     </div>
   </div>
 </template>
 
 <script>
+  import Controls from './components/Controls'
+  // import axios from 'axios'
+  // import cheerio from 'cheerio'
+  
   export default {
-    name: 'scrapifier'
+    name: 'scrapifier',
+    components: { Controls },
+    data: function () {
+      return {
+        url: 'http://localhost:8889/www.dairiki.org/tides/monthly.php/sea'
+      }
+    },
+    mounted: function () {
+      // axios.get(this.url).then((response) => {
+        // const $ = cheerio.load(response.data)
+        // console.log($('table').html())
+        // document.getElementById('page-container').innerHTML = $('body')
+        // console.log($('body').html())
+      // }).catch((error) => {
+        // console.log('error loading url', error)
+      // })
+    }
   }
 </script>
 
 <style lang="scss">
+  @import "../scss/styles";
+  @import "../scss/font-awesome/font-awesome";
+
   * {
     box-sizing: border-box;
     margin: 0;
@@ -26,15 +47,18 @@
   }
 
   .container {
-    display: flex;
     height: 100vh;
 
-    .page-container {
-      flex: 3 0 auto;
+    #page-container {
+      width: 75%;
     }
 
-    .controls-container {
-      flex: 1 0 auto;
+    .controls {
+      margin-left: 75%;
     }
+  }
+
+  .site-url {
+    width: 100%;
   }
 </style>
