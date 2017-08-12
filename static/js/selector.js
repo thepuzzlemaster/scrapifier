@@ -1,4 +1,4 @@
-console.log('selector?')
+var hasScraped = false
 
 function startScraping () {
   document.addEventListener('mousemove', (event) => {
@@ -6,7 +6,20 @@ function startScraping () {
     const y = event.clientY
     var element = document.elementFromPoint(x, y)
 
-    $('.selector-hover').removeClass('selector-hover')
-    $(element).addClass('selector-hover')
+    $('.selector-hover').each(removeHover)
+    addHover($(element))
   })
+}
+
+function addHover ($element) {
+  $element.addClass('selector-hover')
+  $element.on('click', function (event) {
+    event.preventDefault()
+    console.log('item clicked!!!')
+  })
+}
+
+function removeHover () {
+  $(this).removeClass('selector-hover')
+  $(this).off('click')
 }
