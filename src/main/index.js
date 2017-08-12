@@ -50,6 +50,14 @@ function createWindow () {
 
   ipcMain.on('select-element', (event, data) => {
     event.sender.send('pong', Math.random())
+  // Inject js and css to loaded website
+  childWindow.webContents.on('did-finish-load', () => {
+    var js = `
+    var $script = document.createElement('script')
+    $script.src = 'http://localhost:9080/static/js/jquery-3.2.1.slim.min.js'
+    document.body.appendChild($script)
+    `
+    childWindow.webContents.executeJavaScript(js)
   })
 }
 
