@@ -3,7 +3,7 @@ const ipcRenderer = require('electron').ipcRenderer
 var hasScraped = false
 
 function startScraping () {
-  document.addEventListener('mousemove', (event) => {
+  document.addEventListener('mousemove', moveHandler = event => {
     const x = event.clientX
     const y = event.clientY
     var element = document.elementFromPoint(x, y)
@@ -22,6 +22,7 @@ function addHover ($element, moveEvent) {
   $element.on('click', function (event) {
     event.preventDefault()
     ipcRenderer.send('highlight-select', selector)
+    document.removeEventListener('mousemove', moveHandler)
   })
 }
 
@@ -44,6 +45,6 @@ function getSelector ($el) {
 
   const element = $el.get(0).tagName.toLowerCase()
   const classes = getClasses()
-  
+
   return element + classes
 }
