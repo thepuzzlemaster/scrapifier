@@ -43,7 +43,11 @@ function getSelector ($el) {
     return classes
   }
 
-  const element = $el.get(0).tagName.toLowerCase()
+  function getTag ($el) {
+    return $el.get(0).tagName.toLowerCase()
+  }
+
+  const element = getTag($el)
   const classes = getClasses()
 
   return element + classes
