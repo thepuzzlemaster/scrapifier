@@ -10,8 +10,8 @@ if (process.env.NODE_ENV !== 'development') {
   global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
 }
 
-let mainWindow
-let childWindow
+let controlsWindow
+let browserPageWindow
 
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
@@ -21,7 +21,7 @@ function createWindow () {
   /**
    * Initial window options
    */
-  mainWindow = new BrowserWindow({
+  controlsWindow = new BrowserWindow({
     height: 750,
     useContentSize: true,
     width: 1000,
@@ -29,8 +29,8 @@ function createWindow () {
     y: 0
   })
 
-  childWindow = new BrowserWindow({
-    parent: mainWindow,
+  browserPageWindow = new BrowserWindow({
+    parent: controlsWindow,
     height: 750,
     frame: false,
     resizable: false,
@@ -41,21 +41,25 @@ function createWindow () {
     y: 45
   })
 
-  mainWindow.loadURL(winURL)
-  childWindow.loadURL('http://www.dairiki.org/tides/monthly.php/sea')
+  controlsWindow.loadURL(winURL)
+  browserPageWindow.loadURL('http://www.dairiki.org/tides/monthly.php/sea')
 
-  mainWindow.on('closed', () => {
-    mainWindow = null
+  controlsWindow.on('closed', () => {
+    controlsWindow = null
   })
 
-  ipcMain.on('select-element', (event, data) => {
-    childWindow.focus()
+  ipcMain.on('highlight-select', (event, selector) => {
+    controlsWindow.webContents.send('global-selector', selector)
+  })
 
-    childWindow.webContents.executeJavaScript('startScraping()')
+  ipcMain.on('hover-init', (event, data) => {
+    browserPageWindow.focus()
+
+    browserPageWindow.webContents.executeJavaScript('startScraping()')
   })
 
   // Inject js and css to loaded website
-  childWindow.webContents.on('did-finish-load', () => {
+  browserPageWindow.webContents.on('did-finish-load', () => {
     var js = `
     var script = document.createElement('script')
     var $script = document.createElement('script')
@@ -69,7 +73,7 @@ function createWindow () {
     document.body.appendChild(script)
     document.head.appendChild(style)
     `
-    childWindow.webContents.executeJavaScript(js)
+    browserPageWindow.webContents.executeJavaScript(js)
   })
 }
 
@@ -82,7 +86,7 @@ app.on('window-all-closed', () => {
 })
 
 app.on('activate', () => {
-  if (mainWindow === null) {
+  if (controlsWindow === null) {
     createWindow()
   }
 })

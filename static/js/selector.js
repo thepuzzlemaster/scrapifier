@@ -1,3 +1,5 @@
+const ipcRenderer = require('electron').ipcRenderer
+
 var hasScraped = false
 
 function startScraping () {
@@ -14,12 +16,21 @@ function startScraping () {
 function addHover ($element) {
   $element.addClass('selector-hover')
   $element.on('click', function (event) {
+    var selector = getSelector($(event.currentTarget))
+
+    ipcRenderer.send('highlight-select', selector)
     event.preventDefault()
-    console.log('item clicked!!!')
   })
 }
 
 function removeHover () {
   $(this).removeClass('selector-hover')
   $(this).off('click')
+}
+
+function getSelector ($el) {
+  const element = $el.get(0).tagName.toLowerCase()
+  const classes = '.' + $el.attr('class').split(' ').join('.').replace('.selector-hover', '')
+
+  return element + classes
 }
