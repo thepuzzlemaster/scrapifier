@@ -8,6 +8,12 @@
       <span class="fa fa-pencil-square-o"></span>
       <span>Select Element</span>
     </div>
+    <div class="input-group">
+      <label>
+        Selector
+        <input type="text" v-model="selector">
+      </label>
+    </div>
   </div>
 </template>
 
@@ -15,14 +21,20 @@
   export default {
     name: 'controls',
     props: ['url'],
+    data: function () {
+      return {
+        selector: ''
+      }
+    },
     methods: {
       selectElement: function () {
-        this.$electron.ipcRenderer.on('pong', (event, data) => {
-          console.log('pong received!!!', data)
-        })
-
-        this.$electron.ipcRenderer.send('select-element')
+        this.$electron.ipcRenderer.send('hover-init')
       }
+    },
+    mounted: function () {
+      this.$electron.ipcRenderer.on('global-selector', (event, selector) => {
+        this.selector = selector
+      })
     }
   }
 </script>

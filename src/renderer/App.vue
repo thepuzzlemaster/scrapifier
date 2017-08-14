@@ -57,8 +57,4 @@
       margin-left: 75%;
     }
   }
-
-  .site-url {
-    width: 100%;
-  }
 </style>
