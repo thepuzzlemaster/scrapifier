@@ -9,15 +9,15 @@ function startScraping () {
     var element = document.elementFromPoint(x, y)
 
     $('.selector-hover').each(removeHover)
-    addHover($(element))
+    addHover($(element), event)
   })
 }
 
-function addHover ($element) {
+function addHover ($element, moveEvent) {
+  const selector = getSelector($(moveEvent.target))
+
   $element.addClass('selector-hover')
   $element.on('click', function (event) {
-    var selector = getSelector($(event.currentTarget))
-
     ipcRenderer.send('highlight-select', selector)
     event.preventDefault()
   })
@@ -29,8 +29,17 @@ function removeHover () {
 }
 
 function getSelector ($el) {
-  const element = $el.get(0).tagName.toLowerCase()
-  const classes = '.' + $el.attr('class').split(' ').join('.').replace('.selector-hover', '')
+  function getClasses () {
+    var classes = ''
+    if ($el.attr('class')) {
+      classes = '.' + $el.attr('class').split(' ').join('.').replace('.selector-hover', '')
+    }
 
+    return classes
+  }
+
+  const element = $el.get(0).tagName.toLowerCase()
+  const classes = getClasses()
+  
   return element + classes
 }
