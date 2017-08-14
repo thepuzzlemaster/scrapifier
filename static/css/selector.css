@@ -1,4 +1,31 @@
 .selector-hover {
     cursor: pointer;
-    outline: 2px solid red;
+    position: relative;
+}
+
+.selector-hover::after {
+    background-color: black;
+    bottom: 0;
+    content: '';
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.hover-primary::after {
+    opacity: .4;
+}
+
+.hover-secondary::after {
+    opacity: .1;
+}
+
+.selector-hover.hover-primary {
+    outline: 2px solid #095e7e !important;
+}
+
+.selector-hover.hover-secondary {
+    outline: 1px solid #439abb !important;
 }

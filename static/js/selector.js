@@ -16,15 +16,19 @@ function startScraping () {
 function addHover ($element, moveEvent) {
   const selector = getSelector($(moveEvent.target))
 
-  $element.addClass('selector-hover')
+  $element.addClass('selector-hover hover-primary')
+  $(selector).addClass('selector-hover hover-secondary')
+  $element.removeClass('hover-secondary')
   $element.on('click', function (event) {
-    ipcRenderer.send('highlight-select', selector)
     event.preventDefault()
+    ipcRenderer.send('highlight-select', selector)
   })
 }
 
 function removeHover () {
   $(this).removeClass('selector-hover')
+  $(this).removeClass('hover-primary')
+  $(this).removeClass('hover-secondary')
   $(this).off('click')
 }
 
