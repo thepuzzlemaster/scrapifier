@@ -9,11 +9,11 @@ function startScraping () {
     var element = document.elementFromPoint(x, y)
 
     $('.selector-hover').each(removeHover)
-    addHover($(element), event)
+    addHighlight($(element), event)
   })
 }
 
-function addHover ($element, moveEvent, selector) {
+function addHighlight ($element, moveEvent, selector) {
   selector = selector || getSelector($(moveEvent.target))
 
   if ($element) {
@@ -30,7 +30,7 @@ function addHover ($element, moveEvent, selector) {
 }
 
 ipcRenderer.on('selector-updated', (event, selector) => {
-  addHover(null, null, selector)
+  addHighlight(null, null, selector)
 })
 
 function removeHover () {
