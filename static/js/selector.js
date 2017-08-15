@@ -13,21 +13,24 @@ function startScraping () {
   })
 }
 
-function addHover ($element, moveEvent) {
-  const selector = getSelector($(moveEvent.target))
+function addHover ($element, moveEvent, selector) {
+  selector = selector || getSelector($(moveEvent.target))
 
-  $element.addClass('selector-hover hover-primary')
+  if ($element) {
+    $element.addClass('selector-hover hover-primary')
+    $element.removeClass('hover-secondary')
+    $element.on('click', function (event) {
+      ipcRenderer.send('highlight-select', selector)
+      document.removeEventListener('mousemove', moveHandler)
+      event.preventDefault()
+    })
+  }
+  
   $(selector).addClass('selector-hover hover-secondary')
-  $element.removeClass('hover-secondary')
-  $element.on('click', function (event) {
-    event.preventDefault()
-    ipcRenderer.send('highlight-select', selector)
-    document.removeEventListener('mousemove', moveHandler)
-  })
 }
 
 ipcRenderer.on('selector-updated', (event, selector) => {
-  console.log('selector-updated', selector)
+  addHover(null, null, selector)
 })
 
 function removeHover () {
