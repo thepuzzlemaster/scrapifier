@@ -34,8 +34,13 @@ function removeHover () {
 }
 
 function getSelector ($el) {
-  function getClasses () {
-    var classes = ''
+  function getTag ($el) {
+    return $el.get(0).tagName.toLowerCase()
+  }
+
+  function getClasses ($el) {
+    let classes = ''
+    
     if ($el.attr('class')) {
       classes = '.' + $el.attr('class').split(' ').join('.').replace('.selector-hover', '')
     }
@@ -43,12 +48,20 @@ function getSelector ($el) {
     return classes
   }
 
-  function getTag ($el) {
-    return $el.get(0).tagName.toLowerCase()
+  function getSelectorString ($el) {
+    const tag = getTag($el)
+    const classes = getClasses($el)
+
+    if (tag !== 'html' && tag !== 'body') {
+      return tag + classes
+    }
+
+    return ''
   }
 
-  const element = getTag($el)
-  const classes = getClasses()
-
-  return element + classes
+  const $parent = $el.parent()
+  const elSelector = getSelectorString($el)
+  const parentSelector = getSelectorString($parent)
+  
+  return `${parentSelector} ${elSelector}`
 }
