@@ -11,7 +11,7 @@
     <div class="input-group">
       <label>
         Selector
-        <input type="text" v-model="selector">
+        <input type="text" v-model="selector" v-on:keyup.enter="submitSelector">
       </label>
     </div>
   </div>
@@ -29,6 +29,9 @@
     methods: {
       selectElement: function () {
         this.$electron.ipcRenderer.send('hover-init')
+      },
+      submitSelector: function () {
+        this.$electron.ipcRenderer.send('selector-updated', this.selector)
       }
     },
     mounted: function () {

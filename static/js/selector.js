@@ -26,6 +26,10 @@ function addHover ($element, moveEvent) {
   })
 }
 
+ipcRenderer.on('selector-updated', (event, selector) => {
+  console.log('selector-updated', selector)
+})
+
 function removeHover () {
   $(this).removeClass('selector-hover')
   $(this).removeClass('hover-primary')

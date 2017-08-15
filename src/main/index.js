@@ -58,6 +58,10 @@ function createWindow () {
     browserPageWindow.webContents.executeJavaScript('startScraping()')
   })
 
+  ipcMain.on('selector-updated', (event, selector) => {
+    browserPageWindow.webContents.send('selector-updated', selector)
+  })
+
   // Inject js and css to loaded website
   browserPageWindow.webContents.on('did-finish-load', () => {
     var js = `
