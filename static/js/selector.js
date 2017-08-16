@@ -16,7 +16,7 @@ function addHighlight ($element, moveEvent, selector) {
   selector = selector || getSelector($(moveEvent.target))
 
   // Remove existing hovers
-  $('.selector-hover').each(removeHover)
+  $('.selector-hover').each(removeHighlight)
 
   if ($element) {
     $element.addClass('selector-hover hover-primary')
@@ -38,7 +38,7 @@ ipcRenderer.on('selector-updated', (event, selector) => {
   addHighlight(null, null, selector)
 })
 
-function removeHover () {
+function removeHighlight () {
   $(this).removeClass('selector-hover')
   $(this).removeClass('hover-primary')
   $(this).removeClass('hover-secondary')
