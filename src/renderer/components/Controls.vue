@@ -41,8 +41,9 @@
         this.selector = selector
       })
 
-      this.$electron.ipcRenderer.on('selector-count', (event, count) => {
-        this.count = count
+      this.$electron.ipcRenderer.on('selector-info', (event, selectorInfo) => {
+        this.count = selectorInfo.count
+        this.selector = selectorInfo.selector
       })
     }
   }
