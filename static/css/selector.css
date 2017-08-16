@@ -23,9 +23,9 @@
 }
 
 .selector-hover.hover-primary {
-    outline: 2px solid #095e7e !important;
+    outline: 3px solid #095e7e !important;
 }
 
 .selector-hover.hover-secondary {
-    outline: 1px solid #439abb !important;
+    outline: 2px solid #439abb !important;
 }
