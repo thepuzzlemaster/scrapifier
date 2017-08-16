@@ -14,6 +14,7 @@
         <input type="text" v-model="selector" v-on:keyup.enter="submitSelector">
       </label>
     </div>
+    <span class="sub-text" v-if="count">{{count}} elements selected</span>
   </div>
 </template>
 
@@ -23,7 +24,8 @@
     props: ['url'],
     data: function () {
       return {
-        selector: ''
+        selector: '',
+        count: null
       }
     },
     methods: {
@@ -38,6 +40,10 @@
       this.$electron.ipcRenderer.on('global-selector', (event, selector) => {
         this.selector = selector
       })
+
+      this.$electron.ipcRenderer.on('selector-count', (event, count) => {
+        this.count = count
+      })
     }
   }
 </script>
@@ -49,5 +55,9 @@
 
   .controls-container {
     padding: .5em;
+  }
+
+  .sub-text {
+    font-size: 11px;
   }
 </style>
