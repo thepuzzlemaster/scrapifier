@@ -8,13 +8,15 @@ function startScraping () {
     const y = event.clientY
     var element = document.elementFromPoint(x, y)
 
-    $('.selector-hover').each(removeHover)
     addHighlight($(element), event)
   })
 }
 
 function addHighlight ($element, moveEvent, selector) {
   selector = selector || getSelector($(moveEvent.target))
+
+  // Remove existing hovers
+  $('.selector-hover').each(removeHover)
 
   if ($element) {
     $element.addClass('selector-hover hover-primary')
@@ -50,9 +52,15 @@ function getSelector ($el) {
 
   function getClasses ($el) {
     let classes = ''
+    function stripHoverClasses (classes) {
+      return classes.replace('.selector-hover', '')
+        .replace('.hover-primary', '')
+        .replace('.hover-secondary', '')
+    }
     
     if ($el.attr('class')) {
-      classes = '.' + $el.attr('class').split(' ').join('.').replace('.selector-hover', '')
+      classes = '.' + $el.attr('class').split(' ').join('.')
+      classes = stripHoverClasses(classes)
     }
 
     return classes
