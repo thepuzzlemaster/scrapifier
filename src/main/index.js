@@ -48,7 +48,7 @@ function createWindow () {
     controlsWindow = null
   })
 
-  ipcMain.on('selector-info', (event, count) => {
+  ipcMain.on('selector-info', (event, selectorInfo) => {
     controlsWindow.webContents.send('selector-info', selectorInfo)
   })
 
