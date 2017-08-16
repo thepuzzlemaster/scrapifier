@@ -62,6 +62,10 @@ function createWindow () {
     browserPageWindow.webContents.send('selector-updated', selector)
   })
 
+  ipcMain.on('use-selector', (event, selector) => {
+    console.log('use-selector', selector)
+  })
+
   // Inject js and css to loaded website
   browserPageWindow.webContents.on('did-finish-load', () => {
     var js = `

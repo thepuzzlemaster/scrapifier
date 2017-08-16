@@ -15,6 +15,7 @@
       </label>
     </div>
     <span class="sub-text" v-if="count">{{count}} elements selected</span>
+    <div class="btn link" v-on:click="useSelector">Extract Data</div>
   </div>
 </template>
 
@@ -31,6 +32,10 @@
     methods: {
       selectElement: function () {
         this.$electron.ipcRenderer.send('hover-init')
+      },
+      useSelector: function () {
+        console.log('useSelector')
+        this.$electron.ipcRenderer.send('use-selector', this.selector)
       },
       submitSelector: function () {
         this.$electron.ipcRenderer.send('selector-updated', this.selector)
