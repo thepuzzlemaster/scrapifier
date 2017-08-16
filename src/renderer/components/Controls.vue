@@ -37,10 +37,6 @@
       }
     },
     mounted: function () {
-      this.$electron.ipcRenderer.on('global-selector', (event, selector) => {
-        this.selector = selector
-      })
-
       this.$electron.ipcRenderer.on('selector-info', (event, selectorInfo) => {
         this.count = selectorInfo.count
         this.selector = selectorInfo.selector

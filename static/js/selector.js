@@ -20,7 +20,6 @@ function addHighlight ($element, moveEvent, selector) {
     $element.addClass('selector-hover hover-primary')
     $element.removeClass('hover-secondary')
     $element.on('click', function (event) {
-      ipcRenderer.send('highlight-select', selector)
       document.removeEventListener('mousemove', moveHandler)
       event.preventDefault()
     })

@@ -48,9 +48,6 @@ function createWindow () {
     controlsWindow = null
   })
 
-  ipcMain.on('highlight-select', (event, selector) => {
-    controlsWindow.webContents.send('global-selector', selector)
-  }) 
   ipcMain.on('selector-info', (event, count) => {
     controlsWindow.webContents.send('selector-info', selectorInfo)
   })
