@@ -26,7 +26,7 @@ function addHighlight ($element, moveEvent, selector) {
       event.preventDefault()
     })
   }
-  
+
   $(selector).addClass('selector-hover hover-secondary')
   ipcRenderer.send('selector-info', {
     count: $(selector).length,
@@ -57,7 +57,7 @@ function getSelector ($el) {
         .replace('.hover-primary', '')
         .replace('.hover-secondary', '')
     }
-    
+
     if ($el.attr('class')) {
       classes = '.' + $el.attr('class').split(' ').join('.')
       classes = stripHoverClasses(classes)
@@ -80,6 +80,6 @@ function getSelector ($el) {
   const $parent = $el.parent()
   const elSelector = getSelectorString($el)
   const parentSelector = getSelectorString($parent)
-  
   return `${parentSelector} ${elSelector}`
+
 }
