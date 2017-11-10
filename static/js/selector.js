@@ -14,6 +14,9 @@ function startScraping (incomingSelector) {
   })
 }
 
+// -------------------------------------------------------------------------
+// HIGHLIGHTING FUNCTIONS
+//
 function addHighlight ($element, moveEvent, selector) {
   selector = selector || getSelector($(moveEvent.target))
 
@@ -39,10 +42,6 @@ function addHighlight ($element, moveEvent, selector) {
   })
 }
 
-ipcRenderer.on('selector-updated', (event, selector) => {
-  addHighlight(null, null, selector)
-})
-
 function removeHighlight () {
   $(this).removeClass('selector-hover')
   $(this).removeClass('hover-primary')
@@ -50,6 +49,16 @@ function removeHighlight () {
   $(this).off('click')
 }
 
+// -------------------------------------------------------------------------
+// EVENT HANDLERS
+//
+ipcRenderer.on('selector-updated', (event, selector) => {
+  addHighlight(null, null, selector)
+})
+
+// -------------------------------------------------------------------------
+// HELPER METHODS
+//
 function getSelector ($el) {
   function getTag ($el) {
     return $el.get(0).tagName.toLowerCase()
