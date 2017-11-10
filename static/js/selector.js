@@ -1,8 +1,10 @@
 const ipcRenderer = require('electron').ipcRenderer
 
 var hasScraped = false
+var currentSelector = ''
 
-function startScraping () {
+function startScraping (incomingSelector) {
+  currentSelector = incomingSelector || ''
   document.addEventListener('mousemove', moveHandler = event => {
     const x = event.clientX
     const y = event.clientY
@@ -24,6 +26,9 @@ function addHighlight ($element, moveEvent, selector) {
     $element.on('click', function (event) {
       document.removeEventListener('mousemove', moveHandler)
       event.preventDefault()
+      ipcRenderer.send('selector-click', {
+        selector: selector
+      })
     })
   }
 
@@ -77,9 +82,17 @@ function getSelector ($el) {
     return ''
   }
 
+  function stripWhitespace (selector) {
+
+    // Strip out leading and trailing commas and spaces
+    selector = selector.replace(/^\,\s*|\,\s*$/, '')
+    return selector
+  }
+
   const $parent = $el.parent()
   const elSelector = getSelectorString($el)
   const parentSelector = getSelectorString($parent)
-  return `${parentSelector} ${elSelector}`
 
+  var returnSelector = `${currentSelector}, ${parentSelector} ${elSelector}`
+  return stripWhitespace(returnSelector)
 }

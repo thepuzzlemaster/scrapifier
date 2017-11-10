@@ -26,7 +26,8 @@
     data: function () {
       return {
         selector: '',
-        count: null
+        count: null,
+        isClick: false
       }
     },
     methods: {
@@ -45,6 +46,11 @@
       this.$electron.ipcRenderer.on('selector-info', (event, selectorInfo) => {
         this.count = selectorInfo.count
         this.selector = selectorInfo.selector
+        this.isClick = false
+      })
+
+      this.$electron.ipcRenderer.on('selector-click', (event) => {
+        this.isClick = true
       })
     }
   }

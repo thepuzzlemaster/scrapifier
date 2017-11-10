@@ -18,6 +18,8 @@ const winURL = process.env.NODE_ENV === 'development'
   : `file://${__dirname}/index.html`
 
 function createWindow () {
+  let currentSelector = ''
+
   /**
    * Initial window options
    */
@@ -55,14 +57,18 @@ function createWindow () {
     controlsWindow.webContents.send('selector-info', selectorInfo)
   })
 
-  ipcMain.on('hover-init', (event, data) => {
+  ipcMain.on('selector-click', (event, selectorInfo) => {
+    currentSelector = selectorInfo.selector
+    controlsWindow.webContents.send('selector-click')
+  })
+
   // -------------------------------------------------------------------------
   // Events from Controls.vue
   //
   ipcMain.on('hover-init', (event, selectorInfo) => {
     browserPageWindow.focus()
 
-    browserPageWindow.webContents.executeJavaScript('startScraping()')
+    browserPageWindow.webContents.executeJavaScript(`startScraping("${currentSelector}")`)
   })
 
   ipcMain.on('selector-updated', (event, selector) => {
