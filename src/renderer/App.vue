@@ -2,22 +2,23 @@
   <div id="app">
     <div class="container">
       <!-- <div id="page-container"> -->
-        <!-- <router-view></router-view> -->
         <!-- <object id="external-page" :data="url" type="text/html" style="width:100%; height:100%;"></object> -->
       <!-- </div> -->
-      <controls class="controls" :url="url"></controls>
+      <router-view :url="url"></router-view>
+      <!-- <controls class="controls" :url="url"></controls> -->
     </div>
   </div>
 </template>
 
 <script>
-  import Controls from './components/Controls'
+  // import Controls from './components/Controls'
+
   // import axios from 'axios'
   // import cheerio from 'cheerio'
-  
+
   export default {
     name: 'scrapifier',
-    components: { Controls },
+    // components: { Controls },
     data: function () {
       return {
         url: 'http://localhost:8889/www.dairiki.org/tides/monthly.php/sea'
@@ -51,10 +52,6 @@
 
     #page-container {
       width: 75%;
-    }
-
-    .controls {
-      margin-left: 75%;
     }
   }
 </style>

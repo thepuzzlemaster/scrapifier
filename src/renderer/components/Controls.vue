@@ -1,23 +1,25 @@
 <template>
   <div class="controls-container">
-    <h4>Site URL:</h4>
-    <input class="site-url" type="text" v-model="url">
-    <hr>
+    <div class="controls">
+      <h4>Site URL:</h4>
+      <input class="site-url" type="text" v-model="url">
+      <hr>
 
-    <div class="btn btn-inverse link" v-on:click="selectElement">
-      <span class="fa fa-pencil-square-o"></span>
-      <span>Select Element</span>
+      <div class="btn btn-inverse link" v-on:click="selectElement">
+        <span class="fa fa-pencil-square-o"></span>
+        <span>Select Element</span>
+      </div>
+      <div class="input-group">
+        <label>
+          Selector
+          <input type="text" v-model="selector" v-on:keyup.enter="submitSelector">
+        </label>
+      </div>
+      <a href="#" class="link" v-if="showAppend" v-on:click="appendSelector">Append</a>
+      <hr>
+      <span class="sub-text" v-if="count">{{count}} elements selected</span>
+      <div class="btn link" v-on:click="useSelector">Extract Data</div>
     </div>
-    <div class="input-group">
-      <label>
-        Selector
-        <input type="text" v-model="selector" v-on:keyup.enter="submitSelector">
-      </label>
-    </div>
-    <a href="#" class="link" v-if="showAppend" v-on:click="appendSelector">Append</a>
-    <hr>
-    <span class="sub-text" v-if="count">{{count}} elements selected</span>
-    <div class="btn link" v-on:click="useSelector">Extract Data</div>
   </div>
 </template>
 
@@ -69,8 +71,9 @@
     font-size: 12px;
   }
 
-  .controls-container {
+  .controls {
     padding: .5em;
+    margin-left: 75%;
   }
 
   .sub-text {
