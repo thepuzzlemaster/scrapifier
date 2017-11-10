@@ -14,7 +14,7 @@
         <input type="text" v-model="selector" v-on:keyup.enter="submitSelector">
       </label>
     </div>
-    <a href="#" class="link" v-if="isClick" v-on:click="appendSelector">Append</a>
+    <a href="#" class="link" v-if="showAppend" v-on:click="appendSelector">Append</a>
     <hr>
     <span class="sub-text" v-if="count">{{count}} elements selected</span>
     <div class="btn link" v-on:click="useSelector">Extract Data</div>
@@ -29,7 +29,7 @@
       return {
         selector: '',
         count: null,
-        isClick: false
+        showAppend: false
       }
     },
     methods: {
@@ -43,22 +43,22 @@
         })
       },
       useSelector: function () {
-        console.log('useSelector')
         this.$electron.ipcRenderer.send('use-selector', this.selector)
       },
       submitSelector: function () {
         this.$electron.ipcRenderer.send('selector-updated', this.selector)
+        this.showAppend = true
       }
     },
     mounted: function () {
       this.$electron.ipcRenderer.on('selector-info', (event, selectorInfo) => {
         this.count = selectorInfo.count
         this.selector = selectorInfo.selector
-        this.isClick = false
+        this.showAppend = selectorInfo.showAppend
       })
 
       this.$electron.ipcRenderer.on('selector-click', (event) => {
-        this.isClick = true
+        this.showAppend = true
       })
     }
   }

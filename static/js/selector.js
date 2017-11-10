@@ -38,7 +38,8 @@ function addHighlight ($element, moveEvent, selector) {
   $(selector).addClass('selector-hover hover-secondary')
   ipcRenderer.send('selector-info', {
     count: $(selector).length,
-    selector: selector
+    selector: selector,
+    showAppend: $element === null && moveEvent === null
   })
 }
 
