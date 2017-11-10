@@ -48,11 +48,18 @@ function createWindow () {
     controlsWindow = null
   })
 
+  // -------------------------------------------------------------------------
+  // Events from selector.js
+  //
   ipcMain.on('selector-info', (event, selectorInfo) => {
     controlsWindow.webContents.send('selector-info', selectorInfo)
   })
 
   ipcMain.on('hover-init', (event, data) => {
+  // -------------------------------------------------------------------------
+  // Events from Controls.vue
+  //
+  ipcMain.on('hover-init', (event, selectorInfo) => {
     browserPageWindow.focus()
 
     browserPageWindow.webContents.executeJavaScript('startScraping()')
