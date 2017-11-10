@@ -22,10 +22,12 @@
     opacity: .1;
 }
 
-.selector-hover.hover-primary {
-    outline: 3px solid #095e7e !important;
+.selector-hover.hover-secondary {
+    box-shadow: inset 0 0 2px 1px #033b50,
+                      0 0 2px 1px #439abb;
 }
 
-.selector-hover.hover-secondary {
-    outline: 2px solid #439abb !important;
+.selector-hover.hover-primary {
+    box-shadow: inset 0 0 1px 2px #439abb,
+                      0 0 3px 3px #033b50;
 }
