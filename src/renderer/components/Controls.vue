@@ -14,6 +14,8 @@
         <input type="text" v-model="selector" v-on:keyup.enter="submitSelector">
       </label>
     </div>
+    <a href="#" class="link" v-if="isClick" v-on:click="appendSelector">Append</a>
+    <hr>
     <span class="sub-text" v-if="count">{{count}} elements selected</span>
     <div class="btn link" v-on:click="useSelector">Extract Data</div>
   </div>
@@ -33,6 +35,12 @@
     methods: {
       selectElement: function () {
         this.$electron.ipcRenderer.send('hover-init')
+      },
+      appendSelector: function () {
+        this.$electron.ipcRenderer.send('hover-init', {
+          selector: this.selector,
+          mode: 'append'
+        })
       },
       useSelector: function () {
         console.log('useSelector')
