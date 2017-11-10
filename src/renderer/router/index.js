@@ -11,7 +11,7 @@ export default new Router({
       component: require('@/components/Controls')
     },
     {
-      path: '/selector',
+      path: '/',
       name: 'selector',
       component: require('@/components/Selector')
     },
