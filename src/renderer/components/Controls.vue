@@ -43,7 +43,7 @@
         })
       },
       useSelector: function () {
-        this.$electron.ipcRenderer.send('use-selector', this.selector)
+        this.$electron.ipcRenderer.send('extract-data', this.selector)
       },
       submitSelector: function () {
         this.$electron.ipcRenderer.send('selector-updated', this.selector)

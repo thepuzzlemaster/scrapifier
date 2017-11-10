@@ -54,10 +54,22 @@ function removeHighlight () {
 }
 
 // -------------------------------------------------------------------------
+// EXTRACT DATA FUNCTIONS
+//
+function extractData () {
+  $('body').append('<div class="lightbox"></div>')
+}
+
+// -------------------------------------------------------------------------
 // EVENT HANDLERS
 //
 ipcRenderer.on('selector-updated', (event, selector) => {
   addHighlight(null, null, selector, true)
+})
+
+ipcRenderer.on('extract-data', (event, selector) => {
+  console.log('extract-data')
+  extractData()
 })
 
 // -------------------------------------------------------------------------

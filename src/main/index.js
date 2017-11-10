@@ -79,8 +79,8 @@ function createWindow () {
     browserPageWindow.webContents.send('selector-updated', selector)
   })
 
-  ipcMain.on('use-selector', (event, selector) => {
-    console.log('use-selector', selector)
+  ipcMain.on('extract-data', (event, selector) => {
+    browserPageWindow.webContents.send('extract-data', selector)
   })
 
   // Inject js and css to loaded website
