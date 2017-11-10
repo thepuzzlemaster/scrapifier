@@ -67,11 +67,15 @@ function createWindow () {
   //
   ipcMain.on('hover-init', (event, selectorInfo) => {
     browserPageWindow.focus()
+    if (!selectorInfo || selectorInfo.mode !== 'append') {
+      currentSelector = ''
+    }
 
     browserPageWindow.webContents.executeJavaScript(`startScraping("${currentSelector}")`)
   })
 
   ipcMain.on('selector-updated', (event, selector) => {
+    currentSelector = selector
     browserPageWindow.webContents.send('selector-updated', selector)
   })
 

@@ -5,6 +5,7 @@ var currentSelector = ''
 
 function startScraping (incomingSelector) {
   currentSelector = incomingSelector || ''
+  addHighlight(null, null, currentSelector)
   document.addEventListener('mousemove', moveHandler = event => {
     const x = event.clientX
     const y = event.clientY
@@ -17,8 +18,9 @@ function startScraping (incomingSelector) {
 // -------------------------------------------------------------------------
 // HIGHLIGHTING FUNCTIONS
 //
-function addHighlight ($element, moveEvent, selector) {
-  selector = selector || getSelector($(moveEvent.target))
+function addHighlight ($element, moveEvent, selector, showAppend) {
+  const selectorIsEmpty = selector === ''
+  selector = selectorIsEmpty ? '' : selector || getSelector($(moveEvent.target))
 
   // Remove existing hovers
   $('.selector-hover').each(removeHighlight)
@@ -40,7 +42,7 @@ function addHighlight ($element, moveEvent, selector) {
   ipcRenderer.send('selector-info', {
     count: $(selector).length,
     selector: selector,
-    showAppend: $element === null && moveEvent === null
+    showAppend: showAppend
   })
 }
 
@@ -55,7 +57,7 @@ function removeHighlight () {
 // EVENT HANDLERS
 //
 ipcRenderer.on('selector-updated', (event, selector) => {
-  addHighlight(null, null, selector)
+  addHighlight(null, null, selector, true)
 })
 
 // -------------------------------------------------------------------------
