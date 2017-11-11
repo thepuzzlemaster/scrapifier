@@ -18,8 +18,6 @@ const winURL = process.env.NODE_ENV === 'development'
   : `file://${__dirname}/index.html`
 
 function createWindow () {
-  let currentSelector = ''
-
   /**
    * Initial window options
    */
@@ -58,7 +56,7 @@ function createWindow () {
   })
 
   ipcMain.on('selector-click', (event, selectorInfo) => {
-    currentSelector = selectorInfo.selector
+    // currentSelector = selectorInfo.selector
     controlsWindow.webContents.send('selector-click')
   })
 
@@ -67,38 +65,15 @@ function createWindow () {
   //
   ipcMain.on('hover-init', (event, selectorInfo) => {
     browserPageWindow.focus()
-    if (!selectorInfo || selectorInfo.mode !== 'append') {
-      currentSelector = ''
-    }
-
-    browserPageWindow.webContents.executeJavaScript(`startScraping("${currentSelector}")`)
+    browserPageWindow.webContents.send('hover-init', selectorInfo)
   })
 
   ipcMain.on('selector-updated', (event, selector) => {
-    currentSelector = selector
     browserPageWindow.webContents.send('selector-updated', selector)
   })
 
   ipcMain.on('extract-data', (event, selector) => {
     browserPageWindow.webContents.send('extract-data', selector)
-  })
-
-  // Inject js and css to loaded website
-  browserPageWindow.webContents.on('did-finish-load', () => {
-    var js = `
-    var script = document.createElement('script')
-    var $script = document.createElement('script')
-    var style = document.createElement('link')
-    script.src = 'http://localhost:9080/static/js/selector.js'
-    $script.src = 'http://localhost:9080/static/js/jquery-3.2.1.slim.min.js'
-    style.href = 'http://localhost:9080/static/css/selector.css'
-    style.rel='stylesheet'
-    style.type='text/css'
-    document.body.appendChild($script)
-    document.body.appendChild(script)
-    document.head.appendChild(style)
-    `
-    // browserPageWindow.webContents.executeJavaScript(js)
   })
 }
 
