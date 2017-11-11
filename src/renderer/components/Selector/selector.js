@@ -1,4 +1,4 @@
-var $ = require('cheerio')
+var $ = require('jquery')
 const ipcRenderer = require('electron').ipcRenderer
 
 var currentSelector = ''
