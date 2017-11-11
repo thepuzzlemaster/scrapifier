@@ -4,6 +4,8 @@
 
 <script>
   import cheerio from 'cheerio'
+  import Selector from './Selector/selector'
+
   var existingHeadHtml = ''
 
   export default {
@@ -17,6 +19,7 @@
     methods: {
     },
     mounted: function () {
+      // Load external HTML and add to page
       console.log('http request: ', this.url)
       existingHeadHtml = document.getElementsByTagName('head')[0].innerHTML
       this.$http.get(this.url).then(response => {
@@ -27,6 +30,16 @@
         document.getElementsByTagName('head')[0].innerHTML = existingHeadHtml + headHtml
       }).catch((error) => {
         console.log('error loading url', error)
+      })
+
+      this.$electron.ipcRenderer.on('selector-updated', (event, selector) => {
+        Selector('')
+        // addHighlight(null, null, selector, true)
+      })
+
+      this.$electron.ipcRenderer.on('extract-data', (event, selector) => {
+        console.log('extract-data')
+        // extractData()
       })
     }
   }

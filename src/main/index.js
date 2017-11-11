@@ -14,7 +14,7 @@ let controlsWindow
 let browserPageWindow
 
 const winURL = process.env.NODE_ENV === 'development'
-  ? `http://localhost:9080`
+  ? `http://localhost:9080/#`
   : `file://${__dirname}/index.html`
 
 function createWindow () {
@@ -43,8 +43,8 @@ function createWindow () {
     y: 45
   })
 
-  controlsWindow.loadURL(winURL)
-  browserPageWindow.loadURL('http://www.dairiki.org/tides/monthly.php/sea')
+  controlsWindow.loadURL(winURL + 'controls')
+  browserPageWindow.loadURL(winURL)
 
   controlsWindow.on('closed', () => {
     controlsWindow = null
@@ -98,7 +98,7 @@ function createWindow () {
     document.body.appendChild(script)
     document.head.appendChild(style)
     `
-    browserPageWindow.webContents.executeJavaScript(js)
+    // browserPageWindow.webContents.executeJavaScript(js)
   })
 }
 
