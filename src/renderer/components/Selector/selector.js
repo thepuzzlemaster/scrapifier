@@ -3,6 +3,12 @@ const ipcRenderer = require('electron').ipcRenderer
 
 var currentSelector = ''
 
+module.exports = {
+  startScraping: startScraping,
+  addHighlight: addHighlight,
+  extractData: extractData
+}
+
 function startScraping (incomingSelector) {
   currentSelector = incomingSelector || ''
   addHighlight(null, null, currentSelector)
@@ -121,5 +127,3 @@ function getSelector ($el) {
   var returnSelector = `${currentSelector}, ${parentSelector} ${elSelector}`
   return stripWhitespace(returnSelector)
 }
-
-module.exports = startScraping
