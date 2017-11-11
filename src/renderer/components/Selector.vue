@@ -32,14 +32,17 @@
         console.log('error loading url', error)
       })
 
+      this.$electron.ipcRenderer.on('hover-init', (event, selectorInfo) => {
+        const selector = (selectorInfo && selectorInfo.selector) || ''
+        Selector.startScraping(selector)
+      })
+
       this.$electron.ipcRenderer.on('selector-updated', (event, selector) => {
-        Selector('')
-        // addHighlight(null, null, selector, true)
+        Selector.addHighlight(null, null, selector, true)
       })
 
       this.$electron.ipcRenderer.on('extract-data', (event, selector) => {
-        console.log('extract-data')
-        // extractData()
+        Selector.extractData()
       })
     }
   }

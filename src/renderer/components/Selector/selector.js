@@ -15,13 +15,6 @@ function startScraping (incomingSelector) {
   document.addEventListener('mousemove', moveHandler)
 }
 
-function moveHandler (event) {
-  const x = event.clientX
-  const y = event.clientY
-  var element = document.elementFromPoint(x, y)
-
-  addHighlight($(element), event)
-}
 // -------------------------------------------------------------------------
 // HIGHLIGHTING FUNCTIONS
 //
@@ -70,14 +63,13 @@ function extractData () {
 // -------------------------------------------------------------------------
 // EVENT HANDLERS
 //
-ipcRenderer.on('selector-updated', (event, selector) => {
-  addHighlight(null, null, selector, true)
-})
+function moveHandler (event) {
+  const x = event.clientX
+  const y = event.clientY
+  var element = document.elementFromPoint(x, y)
 
-ipcRenderer.on('extract-data', (event, selector) => {
-  console.log('extract-data')
-  extractData()
-})
+  addHighlight($(element), event)
+}
 
 // -------------------------------------------------------------------------
 // HELPER METHODS
