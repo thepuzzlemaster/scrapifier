@@ -46,4 +46,5 @@
 </script>
 
 <style lang="scss">
+  @import "../../scss/selector";
 </style>

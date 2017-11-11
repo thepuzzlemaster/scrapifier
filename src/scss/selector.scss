@@ -1,0 +1,45 @@
+.selector-hover {
+  cursor: pointer;
+  position: relative;
+}
+
+.selector-hover::after {
+  background-color: black;
+  bottom: 0;
+  content: '';
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.hover-primary::after {
+  opacity: .4;
+}
+
+.hover-secondary::after {
+  opacity: .1;
+}
+
+.selector-hover.hover-secondary {
+  box-shadow: inset 0 0 2px 1px #033b50,
+                    0 0 2px 1px #439abb;
+}
+
+.selector-hover.hover-primary {
+  box-shadow: inset 0 0 1px 2px #439abb,
+                    0 0 3px 3px #033b50;
+}
+
+
+/* EXTRACT DATA */
+.lightbox {
+  background-color: rgba(255, 255, 255, .8);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+}
