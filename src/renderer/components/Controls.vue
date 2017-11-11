@@ -15,7 +15,7 @@
           <input type="text" v-model="selector" v-on:keyup.enter="submitSelector">
         </label>
       </div>
-      <a href="#" class="link" v-if="showAppend" v-on:click="appendSelector">Append</a>
+      <a class="link" v-if="showAppend" v-on:click="appendSelector">Append</a>
       <hr>
       <span class="sub-text" v-if="count">{{count}} elements selected</span>
       <div class="btn link" v-on:click="useSelector">Extract Data</div>
