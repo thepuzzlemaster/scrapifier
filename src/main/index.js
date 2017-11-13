@@ -56,7 +56,6 @@ function createWindow () {
   })
 
   ipcMain.on('selector-click', (event, selectorInfo) => {
-    // currentSelector = selectorInfo.selector
     controlsWindow.webContents.send('selector-click')
   })
 
