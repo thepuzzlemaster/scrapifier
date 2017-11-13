@@ -13,7 +13,7 @@ export default new Router({
     {
       path: '/',
       name: 'selector',
-      component: require('@/components/Selector')
+      component: require('@/components/WebContent')
     },
     {
       path: '*',

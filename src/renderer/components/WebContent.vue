@@ -4,12 +4,12 @@
 
 <script>
   import cheerio from 'cheerio'
-  import Selector from './Selector/selector'
+  import WebContent from './WebContent/webContent'
 
   var existingHeadHtml = ''
 
   export default {
-    name: 'selector',
+    name: 'webContent',
     props: ['url'],
     data: function () {
       return {
@@ -34,20 +34,20 @@
 
       this.$electron.ipcRenderer.on('hover-init', (event, selectorInfo) => {
         const selector = (selectorInfo && selectorInfo.selector) || ''
-        Selector.startScraping(selector)
+        WebContent.startScraping(selector)
       })
 
       this.$electron.ipcRenderer.on('selector-updated', (event, selector) => {
-        Selector.addHighlight(null, null, selector, true)
+        WebContent.addHighlight(null, null, selector, true)
       })
 
       this.$electron.ipcRenderer.on('extract-data', (event, selector) => {
-        Selector.extractData()
+        WebContent.extractData()
       })
     }
   }
 </script>
 
 <style lang="scss">
-  @import "../../scss/selector";
+  @import "../../scss/web-content";
 </style>

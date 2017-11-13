@@ -82,7 +82,7 @@ let webConfig = {
   },
   plugins: [
     new ExtractTextPlugin('styles.css'),
-    new ExtractTextPlugin('selector.css'),
+    new ExtractTextPlugin('web-content.css'),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.resolve(__dirname, '../src/index.ejs'),
