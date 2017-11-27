@@ -10,7 +10,7 @@ if (process.env.NODE_ENV !== 'development') {
   global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
 }
 
-let controlsWindow
+let window
 let browserPageWindow
 
 const winURL = process.env.NODE_ENV === 'development'
@@ -21,7 +21,7 @@ function createWindow () {
   /**
    * Initial window options
    */
-  controlsWindow = new BrowserWindow({
+  window = new BrowserWindow({
     height: 750,
     useContentSize: true,
     width: 1000,
@@ -29,22 +29,21 @@ function createWindow () {
     y: 0
   })
 
+  window.loadURL(winURL + 'controls')
 
-  controlsWindow.loadURL(winURL + 'controls')
-
-  controlsWindow.on('closed', () => {
-    controlsWindow = null
+  window.on('closed', () => {
+    window = null
   })
 
   // -------------------------------------------------------------------------
   // Events from selector.js
   //
   ipcMain.on('selector-info', (event, selectorInfo) => {
-    controlsWindow.webContents.send('selector-info', selectorInfo)
+    window.webContents.send('selector-info', selectorInfo)
   })
 
   ipcMain.on('selector-click', (event, selectorInfo) => {
-    controlsWindow.webContents.send('selector-click')
+    window.webContents.send('selector-click')
   })
 
   // -------------------------------------------------------------------------
@@ -73,7 +72,7 @@ app.on('window-all-closed', () => {
 })
 
 app.on('activate', () => {
-  if (controlsWindow === null) {
+  if (window === null) {
     createWindow()
   }
 })
