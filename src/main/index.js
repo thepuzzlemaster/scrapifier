@@ -29,20 +29,20 @@ function createWindow () {
     y: 0
   })
 
-  browserPageWindow = new BrowserWindow({
-    parent: controlsWindow,
-    height: 750,
-    frame: false,
-    resizable: false,
-    movable: false,
-    useContentSize: true,
-    width: 750,
-    x: 0,
-    y: 45
-  })
+  // browserPageWindow = new BrowserWindow({
+  //   parent: controlsWindow,
+  //   height: 750,
+  //   frame: false,
+  //   resizable: false,
+  //   movable: false,
+  //   useContentSize: true,
+  //   width: 750,
+  //   x: 0,
+  //   y: 45
+  // })
 
   controlsWindow.loadURL(winURL + 'controls')
-  browserPageWindow.loadURL(winURL)
+  // browserPageWindow.loadURL(winURL)
 
   controlsWindow.on('closed', () => {
     controlsWindow = null

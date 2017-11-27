@@ -71,9 +71,14 @@
     font-size: 12px;
   }
 
-  .controls {
+  .controls-container {
+    background-color: white;
+    border-left: 1px solid black;
+    bottom: 0;
     padding: .5em;
-    margin-left: 75%;
+    position: fixed;
+    right: 0;
+    top: 0;
   }
 
   .sub-text {
