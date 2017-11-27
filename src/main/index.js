@@ -39,22 +39,22 @@ function createWindow () {
   // Events from selector.js
   //
   ipcMain.on('selector-info', (event, selectorInfo) => {
-    window.webContents.send('selector-info', selectorInfo)
+    // window.webContents.send('selector-info', selectorInfo)
   })
 
   ipcMain.on('selector-click', (event, selectorInfo) => {
-    window.webContents.send('selector-click')
+    // window.webContents.send('selector-click')
   })
 
   // -------------------------------------------------------------------------
   // Events from Controls.vue
   //
   ipcMain.on('selector-updated', (event, selector) => {
-    browserPageWindow.webContents.send('selector-updated', selector)
+    // browserPageWindow.webContents.send('selector-updated', selector)
   })
 
   ipcMain.on('extract-data', (event, selector) => {
-    browserPageWindow.webContents.send('extract-data', selector)
+    // browserPageWindow.webContents.send('extract-data', selector)
   })
 }
 

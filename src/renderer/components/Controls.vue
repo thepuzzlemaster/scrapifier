@@ -36,32 +36,33 @@
     },
     methods: {
       selectElement: function () {
-        this.$electron.ipcRenderer.send('hover-init')
+        this.$emit('isScraping', true)
       },
       appendSelector: function () {
-        this.$electron.ipcRenderer.send('hover-init', {
+        this.$emit('isScraping', true, {
           selector: this.selector,
           mode: 'append'
         })
       },
+
       useSelector: function () {
-        this.$electron.ipcRenderer.send('extract-data', this.selector)
+        // this.$electron.ipcRenderer.send('extract-data', this.selector)
       },
       submitSelector: function () {
-        this.$electron.ipcRenderer.send('selector-updated', this.selector)
+        // this.$electron.ipcRenderer.send('selector-updated', this.selector)
         this.showAppend = true
       }
     },
     mounted: function () {
-      this.$electron.ipcRenderer.on('selector-info', (event, selectorInfo) => {
-        this.count = selectorInfo.count
-        this.selector = selectorInfo.selector
-        this.showAppend = selectorInfo.showAppend
-      })
+      // this.$electron.ipcRenderer.on('selector-info', (event, selectorInfo) => {
+      //   this.count = selectorInfo.count
+      //   this.selector = selectorInfo.selector
+      //   this.showAppend = selectorInfo.showAppend
+      // })
 
-      this.$electron.ipcRenderer.on('selector-click', (event) => {
-        this.showAppend = true
-      })
+      // this.$electron.ipcRenderer.on('selector-click', (event) => {
+      //   this.showAppend = true
+      // })
     }
   }
 </script>

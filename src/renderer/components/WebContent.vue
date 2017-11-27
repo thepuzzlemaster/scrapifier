@@ -46,18 +46,13 @@
         console.log('error loading url', error)
       })
 
-      this.$electron.ipcRenderer.on('hover-init', (event, selectorInfo) => {
-        const selector = (selectorInfo && selectorInfo.selector) || ''
-        WebContent.startScraping(selector)
-      })
+      // this.$electron.ipcRenderer.on('selector-updated', (event, selector) => {
+      //   WebContent.addHighlight(null, null, selector, true)
+      // })
 
-      this.$electron.ipcRenderer.on('selector-updated', (event, selector) => {
-        WebContent.addHighlight(null, null, selector, true)
-      })
-
-      this.$electron.ipcRenderer.on('extract-data', (event, selector) => {
-        WebContent.extractData()
-      })
+      // this.$electron.ipcRenderer.on('extract-data', (event, selector) => {
+      //   WebContent.extractData()
+      // })
     }
   }
 </script>
