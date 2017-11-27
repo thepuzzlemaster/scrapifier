@@ -49,11 +49,6 @@ function createWindow () {
   // -------------------------------------------------------------------------
   // Events from Controls.vue
   //
-  ipcMain.on('hover-init', (event, selectorInfo) => {
-    browserPageWindow.focus()
-    browserPageWindow.webContents.send('hover-init', selectorInfo)
-  })
-
   ipcMain.on('selector-updated', (event, selector) => {
     browserPageWindow.webContents.send('selector-updated', selector)
   })

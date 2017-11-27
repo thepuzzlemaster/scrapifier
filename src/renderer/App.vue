@@ -5,8 +5,8 @@
         <!-- <object id="external-page" :data="url" type="text/html" style="width:100%; height:100%;"></object> -->
       <!-- </div> -->
       <!-- <router-view :url="url"></router-view> -->
-      <web-content :url="url"></web-content>
-      <controls class="controls" :url="url"></controls>
+      <web-content :url="url" :scraping="scraping"></web-content>
+      <controls class="controls" :url="url" v-on:isScraping="startScraping"></controls>
     </div>
   </div>
 </template>
@@ -23,7 +23,25 @@
     components: { Controls, WebContent },
     data: function () {
       return {
-        url: 'http://localhost:8889/www.dairiki.org/tides/monthly.php/sea'
+        url: 'http://localhost:8889/www.dairiki.org/tides/monthly.php/sea',
+        scraping: {
+          isScraping: false,
+          scrapingMode: null
+        }
+      }
+    },
+    methods: {
+      startScraping: function (isScraping, options) {
+        console.log('App.startScraping', isScraping, options)
+        var scrapingMode = options && options.mode
+        var selector = options && options.selector
+        var scrapingObject = {
+          isScraping: isScraping,
+          scrapingMode: scrapingMode,
+          selector: selector
+        }
+
+        this.scraping = scrapingObject
       }
     },
     mounted: function () {

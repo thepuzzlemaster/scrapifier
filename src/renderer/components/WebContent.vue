@@ -10,13 +10,27 @@
 
   export default {
     name: 'webContent',
-    props: ['url'],
+    props: {
+      url: String,
+      scraping: Object
+    },
     data: function () {
       return {
         html: '<p>Loading...</p>'
       }
     },
+    watch: {
+      scraping: function (isScraping, options) {
+        if (isScraping) {
+          this.startScraping(options.selector)
+        }
+      }
+    },
     methods: {
+      startScraping: function (selector) {
+        console.log('WebContent.startScraping', selector)
+        WebContent.startScraping(selector)
+      }
     },
     mounted: function () {
       // Load external HTML and add to page
