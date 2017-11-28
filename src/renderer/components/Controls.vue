@@ -27,13 +27,13 @@
   export default {
     name: 'controls',
     props: {
-      url: String,
+      count: Number,
       selector: String,
-      showAppend: Boolean
+      showAppend: Boolean,
+      url: String
     },
     data: function () {
       return {
-        count: null
       }
     },
     methods: {

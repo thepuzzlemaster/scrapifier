@@ -7,10 +7,12 @@
       <!-- <router-view :url="url"></router-view> -->
       <web-content :url="url"
                    :scraping="scraping"
+                   v-on:selectorInfo="selectorInfo"
                    v-on:selectorClick="selectorClick"></web-content>
-      <controls class="controls" :url="url"
+      <controls class="controls" :count="count"
                                  :selector="selector"
                                  :show-append="showAppend"
+                                 :url="url"
                                  v-on:isScraping="startScraping"></controls>
     </div>
   </div>
@@ -33,6 +35,7 @@
           isScraping: false,
           scrapingMode: null
         },
+        count: 0,
         selector: '',
         showAppend: false
       }
@@ -50,6 +53,11 @@
 
         this.scraping = scrapingObject
         this.showAppend = false
+      },
+      selectorInfo: function (options) {
+        this.count = options.count
+        this.selector = options.selector
+        this.showAppend = options.showAppend
       },
       selectorClick: function (options) {
         this.showAppend = true

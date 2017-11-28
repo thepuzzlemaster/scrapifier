@@ -64,11 +64,11 @@
         }
 
         $(selector).addClass('selector-hover hover-secondary')
-        // ipcRenderer.send('selector-info', {
-        //   count: $(selector).length,
-        //   selector: selector,
-        //   showAppend: showAppend
-        // })
+        this.$emit('selectorInfo', {
+          count: $(selector).length,
+          selector: selector,
+          showAppend: showAppend
+        })
       },
 
       //

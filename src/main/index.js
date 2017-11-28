@@ -36,17 +36,6 @@ function createWindow () {
   })
 
   // -------------------------------------------------------------------------
-  // Events from selector.js
-  //
-  ipcMain.on('selector-info', (event, selectorInfo) => {
-    // window.webContents.send('selector-info', selectorInfo)
-  })
-
-  ipcMain.on('selector-click', (event, selectorInfo) => {
-    // window.webContents.send('selector-click')
-  })
-
-  // -------------------------------------------------------------------------
   // Events from Controls.vue
   //
   ipcMain.on('selector-updated', (event, selector) => {
