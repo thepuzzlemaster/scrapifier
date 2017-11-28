@@ -26,12 +26,14 @@
 <script>
   export default {
     name: 'controls',
-    props: ['url'],
+    props: {
+      url: String,
+      selector: String,
+      showAppend: Boolean
+    },
     data: function () {
       return {
-        selector: '',
-        count: null,
-        showAppend: false
+        count: null
       }
     },
     methods: {
@@ -50,7 +52,7 @@
       },
       submitSelector: function () {
         // this.$electron.ipcRenderer.send('selector-updated', this.selector)
-        this.showAppend = true
+        // this.showAppend = true
       }
     },
     mounted: function () {

@@ -5,8 +5,13 @@
         <!-- <object id="external-page" :data="url" type="text/html" style="width:100%; height:100%;"></object> -->
       <!-- </div> -->
       <!-- <router-view :url="url"></router-view> -->
-      <web-content :url="url" :scraping="scraping"></web-content>
-      <controls class="controls" :url="url" v-on:isScraping="startScraping"></controls>
+      <web-content :url="url"
+                   :scraping="scraping"
+                   v-on:selectorClick="selectorClick"></web-content>
+      <controls class="controls" :url="url"
+                                 :selector="selector"
+                                 :show-append="showAppend"
+                                 v-on:isScraping="startScraping"></controls>
     </div>
   </div>
 </template>
@@ -27,7 +32,9 @@
         scraping: {
           isScraping: false,
           scrapingMode: null
-        }
+        },
+        selector: '',
+        showAppend: false
       }
     },
     methods: {
@@ -42,6 +49,11 @@
         }
 
         this.scraping = scrapingObject
+        this.showAppend = false
+      },
+      selectorClick: function (options) {
+        this.showAppend = true
+        this.selector = options && options.selector
       }
     },
     mounted: function () {
