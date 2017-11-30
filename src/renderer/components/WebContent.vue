@@ -21,15 +21,16 @@
       }
     },
     watch: {
-      scraping: function (isScraping, options) {
-        if (isScraping) {
-          this.startScraping(options.selector)
+      scraping: function (newVal) {
+        // console.log('watch scraping', newVal)
+        if (newVal.isScraping) {
+          this.startScraping(newVal.selector)
         }
       }
     },
     methods: {
       startScraping: function (incomingSelector) {
-        console.log('WebContent.startScraping', incomingSelector)
+        // console.log('WebContent.startScraping', incomingSelector)
         this.currentSelector = incomingSelector || ''
         this.addHighlight(null, null, this.currentSelector)
         document.addEventListener('mousemove', this.moveHandler)

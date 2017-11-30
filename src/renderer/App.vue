@@ -10,7 +10,7 @@
                    v-on:selectorInfo="selectorInfo"
                    v-on:selectorClick="selectorClick"></web-content>
       <controls class="controls" :count="count"
-                                 :selector="selector"
+                                 :selector="scraping.selector"
                                  :show-append="showAppend"
                                  :url="url"
                                  v-on:isScraping="startScraping"></controls>
@@ -33,7 +33,8 @@
         url: 'http://localhost:8889/www.dairiki.org/tides/monthly.php/sea',
         scraping: {
           isScraping: false,
-          scrapingMode: null
+          scrapingMode: null,
+          selector: ''
         },
         count: 0,
         selector: '',
@@ -42,7 +43,7 @@
     },
     methods: {
       startScraping: function (isScraping, options) {
-        console.log('App.startScraping', isScraping, options)
+        // console.log('App.startScraping', isScraping, options)
         var scrapingMode = options && options.mode
         var selector = options && options.selector
         var scrapingObject = {
@@ -56,12 +57,12 @@
       },
       selectorInfo: function (options) {
         this.count = options.count
-        this.selector = options.selector
+        this.scraping.selector = options.selector
         this.showAppend = options.showAppend
       },
       selectorClick: function (options) {
         this.showAppend = true
-        this.selector = options && options.selector
+        this.scraping.selector = options && options.selector
       }
     },
     mounted: function () {
