@@ -12,7 +12,7 @@
       <div class="input-group">
         <label>
           Selector
-          <input type="text" v-model="selector" v-on:keyup.enter="submitSelector">
+          <input type="text" :value="computedSelector" v-on:keyup.enter="submitSelector">
         </label>
       </div>
       <a class="link" v-if="showAppend" v-on:click="appendSelector">Append</a>
@@ -34,6 +34,16 @@
     },
     data: function () {
       return {
+      }
+    },
+    computed: {
+      computedSelector: {
+        get () {
+          return this.selector
+        },
+        set (value) {
+          this.$emit('selectorChanged', {selector: value})
+        }
       }
     },
     methods: {
