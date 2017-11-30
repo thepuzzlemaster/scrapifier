@@ -13,6 +13,7 @@
                                  :selector="scraping.selector"
                                  :show-append="showAppend"
                                  :url="url"
+                                 v-on:selectorChange="setSelector"
                                  v-on:isScraping="startScraping"></controls>
     </div>
   </div>
@@ -63,6 +64,10 @@
       selectorClick: function (options) {
         this.showAppend = true
         this.scraping.selector = options && options.selector
+      },
+      setSelector: function (options) {
+        this.showAppend = true
+        this.scraping.selector = options.selectorInfo
       }
     },
     mounted: function () {

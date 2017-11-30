@@ -51,8 +51,9 @@
         // this.$electron.ipcRenderer.send('extract-data', this.selector)
       },
       submitSelector: function () {
-        // this.$electron.ipcRenderer.send('selector-updated', this.selector)
-        // this.showAppend = true
+        this.$emit('selectorChange', {
+          selector: this.selector
+        })
       }
     },
     mounted: function () {
