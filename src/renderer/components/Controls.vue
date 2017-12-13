@@ -12,7 +12,7 @@
       <div class="input-group">
         <label>
           Selector
-          <input type="text" :value="computedSelector" v-on:keyup.enter="submitSelector">
+          <input type="text" :value="computedSelector" v-on:input="onInputChanged" v-on:keyup.enter="submitSelector">
         </label>
       </div>
       <a class="link" v-if="showAppend" v-on:click="appendSelector">Append</a>
@@ -34,6 +34,7 @@
     },
     data: function () {
       return {
+        inputValue: ''
       }
     },
     computed: {
@@ -42,11 +43,15 @@
           return this.selector
         },
         set (value) {
-          this.$emit('selectorChanged', {selector: value})
+          // this.inputValue = value
+          // this.$emit('selectorChanged', {selector: value})
         }
       }
     },
     methods: {
+      onInputChanged: function (event) {
+        this.inputValue = event.target.value
+      },
       selectElement: function () {
         this.$emit('isScraping', true)
       },
@@ -62,7 +67,7 @@
       },
       submitSelector: function () {
         this.$emit('selectorChange', {
-          selector: this.selector
+          selector: this.inputValue
         })
       }
     },

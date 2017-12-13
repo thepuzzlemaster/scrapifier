@@ -67,7 +67,7 @@
       },
       setSelector: function (options) {
         this.showAppend = true
-        this.scraping.selector = options.selectorInfo
+        this.scraping.selector = options.selector
       }
     },
     mounted: function () {
