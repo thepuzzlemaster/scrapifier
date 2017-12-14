@@ -63,6 +63,7 @@
       },
       selectorClick: function (options) {
         this.showAppend = true
+        this.scraping.isScraping = false
         this.scraping.selector = options && options.selector
       },
       setSelector: function (options) {

@@ -20,11 +20,20 @@
         currentSelector: ''
       }
     },
+    computed: {
+      selector () {
+        return this.scraping.selector
+      }
+    },
     watch: {
-      scraping: function (newVal) {
-        // console.log('watch scraping', newVal)
+      scraping: function (newVal, oldVal) {
         if (newVal.isScraping) {
           this.startScraping(newVal.selector)
+        }
+      },
+      selector: function (newVal, oldVal) {
+        if (!this.scraping.isScraping) {
+          this.addHighlight(null, null, newVal, true)
         }
       }
     },
