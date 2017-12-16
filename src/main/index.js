@@ -11,7 +11,7 @@ if (process.env.NODE_ENV !== 'development') {
 }
 
 let window
-let browserPageWindow
+// let browserPageWindow
 
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080/#`
