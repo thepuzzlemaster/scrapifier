@@ -6,7 +6,7 @@
       <hr>
 
       <div class="btn btn-inverse link" v-on:click="selectElement">
-        <span class="fa fa-pencil-square-o"></span>
+        <font-awesome-icon :icon="iconPencil" />
         <span>Select Element</span>
       </div>
       <div class="input-group">
@@ -24,8 +24,13 @@
 </template>
 
 <script>
+  import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+  import { faEdit } from '@fortawesome/fontawesome-free-regular'
   export default {
     name: 'controls',
+    components: {
+      FontAwesomeIcon
+    },
     props: {
       count: Number,
       selector: String,
@@ -46,6 +51,9 @@
           // this.inputValue = value
           // this.$emit('selectorChanged', {selector: value})
         }
+      },
+      iconPencil () {
+        return faEdit
       }
     },
     methods: {

@@ -86,7 +86,6 @@
 
 <style lang="scss">
   @import "../scss/styles";
-  @import "../scss/font-awesome/font-awesome";
 
   * {
     box-sizing: border-box;
