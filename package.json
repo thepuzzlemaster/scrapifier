@@ -23,6 +23,10 @@
     "postinstall": "npm run lint:fix"
   },
   "dependencies": {
+    "@fortawesome/fontawesome": "^1.0.1",
+    "@fortawesome/fontawesome-free-regular": "^5.0.1",
+    "@fortawesome/fontawesome-free-solid": "^5.0.1",
+    "@fortawesome/vue-fontawesome": "0.0.21",
     "axios": "^0.16.1",
     "cheerio": "^1.0.0-rc.2",
     "jquery": "^3.2.1",

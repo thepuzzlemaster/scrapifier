@@ -10,8 +10,8 @@ if (process.env.NODE_ENV !== 'development') {
   global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
 }
 
-let controlsWindow
-let browserPageWindow
+let window
+// let browserPageWindow
 
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080/#`
@@ -21,7 +21,7 @@ function createWindow () {
   /**
    * Initial window options
    */
-  controlsWindow = new BrowserWindow({
+  window = new BrowserWindow({
     height: 750,
     useContentSize: true,
     width: 1000,
@@ -29,50 +29,21 @@ function createWindow () {
     y: 0
   })
 
-  browserPageWindow = new BrowserWindow({
-    parent: controlsWindow,
-    height: 750,
-    frame: false,
-    resizable: false,
-    movable: false,
-    useContentSize: true,
-    width: 750,
-    x: 0,
-    y: 45
-  })
+  window.loadURL(winURL + 'controls')
 
-  controlsWindow.loadURL(winURL + 'controls')
-  browserPageWindow.loadURL(winURL)
-
-  controlsWindow.on('closed', () => {
-    controlsWindow = null
-  })
-
-  // -------------------------------------------------------------------------
-  // Events from selector.js
-  //
-  ipcMain.on('selector-info', (event, selectorInfo) => {
-    controlsWindow.webContents.send('selector-info', selectorInfo)
-  })
-
-  ipcMain.on('selector-click', (event, selectorInfo) => {
-    controlsWindow.webContents.send('selector-click')
+  window.on('closed', () => {
+    window = null
   })
 
   // -------------------------------------------------------------------------
   // Events from Controls.vue
   //
-  ipcMain.on('hover-init', (event, selectorInfo) => {
-    browserPageWindow.focus()
-    browserPageWindow.webContents.send('hover-init', selectorInfo)
-  })
-
   ipcMain.on('selector-updated', (event, selector) => {
-    browserPageWindow.webContents.send('selector-updated', selector)
+    // browserPageWindow.webContents.send('selector-updated', selector)
   })
 
   ipcMain.on('extract-data', (event, selector) => {
-    browserPageWindow.webContents.send('extract-data', selector)
+    // browserPageWindow.webContents.send('extract-data', selector)
   })
 }
 
@@ -85,7 +56,7 @@ app.on('window-all-closed', () => {
 })
 
 app.on('activate', () => {
-  if (controlsWindow === null) {
+  if (window === null) {
     createWindow()
   }
 })

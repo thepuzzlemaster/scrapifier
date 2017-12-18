@@ -6,13 +6,13 @@
       <hr>
 
       <div class="btn btn-inverse link" v-on:click="selectElement">
-        <span class="fa fa-pencil-square-o"></span>
+        <font-awesome-icon :icon="iconPencil" />
         <span>Select Element</span>
       </div>
       <div class="input-group">
         <label>
           Selector
-          <input type="text" v-model="selector" v-on:keyup.enter="submitSelector">
+          <input type="text" :value="computedSelector" v-on:input="onInputChanged" v-on:keyup.enter="submitSelector">
         </label>
       </div>
       <a class="link" v-if="showAppend" v-on:click="appendSelector">Append</a>
@@ -24,44 +24,71 @@
 </template>
 
 <script>
+  import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+  import { faEdit } from '@fortawesome/fontawesome-free-regular'
   export default {
     name: 'controls',
-    props: ['url'],
+    components: {
+      FontAwesomeIcon
+    },
+    props: {
+      count: Number,
+      selector: String,
+      showAppend: Boolean,
+      url: String
+    },
     data: function () {
       return {
-        selector: '',
-        count: null,
-        showAppend: false
+        inputValue: ''
+      }
+    },
+    computed: {
+      computedSelector: {
+        get () {
+          return this.selector
+        },
+        set (value) {
+          // this.inputValue = value
+          // this.$emit('selectorChanged', {selector: value})
+        }
+      },
+      iconPencil () {
+        return faEdit
       }
     },
     methods: {
+      onInputChanged: function (event) {
+        this.inputValue = event.target.value
+      },
       selectElement: function () {
-        this.$electron.ipcRenderer.send('hover-init')
+        this.$emit('isScraping', true)
       },
       appendSelector: function () {
-        this.$electron.ipcRenderer.send('hover-init', {
+        this.$emit('isScraping', true, {
           selector: this.selector,
           mode: 'append'
         })
       },
+
       useSelector: function () {
-        this.$electron.ipcRenderer.send('extract-data', this.selector)
+        // this.$electron.ipcRenderer.send('extract-data', this.selector)
       },
       submitSelector: function () {
-        this.$electron.ipcRenderer.send('selector-updated', this.selector)
-        this.showAppend = true
+        this.$emit('selectorChange', {
+          selector: this.inputValue
+        })
       }
     },
     mounted: function () {
-      this.$electron.ipcRenderer.on('selector-info', (event, selectorInfo) => {
-        this.count = selectorInfo.count
-        this.selector = selectorInfo.selector
-        this.showAppend = selectorInfo.showAppend
-      })
+      // this.$electron.ipcRenderer.on('selector-info', (event, selectorInfo) => {
+      //   this.count = selectorInfo.count
+      //   this.selector = selectorInfo.selector
+      //   this.showAppend = selectorInfo.showAppend
+      // })
 
-      this.$electron.ipcRenderer.on('selector-click', (event) => {
-        this.showAppend = true
-      })
+      // this.$electron.ipcRenderer.on('selector-click', (event) => {
+      //   this.showAppend = true
+      // })
     }
   }
 </script>
@@ -71,9 +98,14 @@
     font-size: 12px;
   }
 
-  .controls {
+  .controls-container {
+    background-color: white;
+    border-left: 1px solid black;
+    bottom: 0;
     padding: .5em;
-    margin-left: 75%;
+    position: fixed;
+    right: 0;
+    top: 0;
   }
 
   .sub-text {
