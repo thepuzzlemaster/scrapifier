@@ -1,25 +1,36 @@
-.selector-hover {
+.selector-hover,
+tr.selector-hover td {
   cursor: pointer;
   position: relative;
 }
 
-.selector-hover::after {
-  background-color: black;
-  bottom: 0;
-  content: '';
-  left: 0;
-  pointer-events: none;
-  position: absolute;
-  right: 0;
-  top: 0;
+:not(tr).selector-hover,
+tr.selector-hover td {
+
+  &::after {
+    background-color: black;
+    bottom: 0;
+    content: '';
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
 }
 
-.hover-primary::after {
-  opacity: .4;
+:not(tr).hover-primary,
+tr.hover-primary td {
+  &::after {
+    opacity: .4;
+  }
 }
 
-.hover-secondary::after {
-  opacity: .1;
+:not(tr).hover-secondary,
+tr.hover-secondary td {
+  &::after {
+    opacity: .1;
+  }
 }
 
 .selector-hover.hover-secondary {

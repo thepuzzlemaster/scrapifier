@@ -15,7 +15,14 @@
           <input type="text" :value="computedSelector" v-on:input="onInputChanged" v-on:keyup.enter="submitSelector">
         </label>
       </div>
-      <a class="link" v-if="showAppend" v-on:click="appendSelector">Append</a>
+      <ul class="unstyled">
+        <li>
+          <a class="link" v-if="showAppend" v-on:click="chooseSelectorParent"><font-awesome-icon :icon="iconUp" /> Choose Parent</a>
+        </li>
+        <li>
+          <a class="link" v-if="showAppend" v-on:click="appendSelector"><font-awesome-icon :icon="iconPlus" /> Append</a>
+        </li>
+      </ul>
       <hr>
       <span class="sub-text" v-if="count">{{count}} elements selected</span>
       <div class="btn link" v-on:click="useSelector">Extract Data</div>
@@ -25,7 +32,11 @@
 
 <script>
   import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
-  import { faEdit } from '@fortawesome/fontawesome-free-regular'
+  import {
+    faEdit,
+    faPlusSquare } from '@fortawesome/fontawesome-free-regular'
+  import { faLevelUpAlt } from '@fortawesome/fontawesome-free-solid'
+
   export default {
     name: 'controls',
     components: {
@@ -54,6 +65,12 @@
       },
       iconPencil () {
         return faEdit
+      },
+      iconPlus () {
+        return faPlusSquare
+      },
+      iconUp () {
+        return faLevelUpAlt
       }
     },
     methods: {
@@ -67,6 +84,12 @@
         this.$emit('isScraping', true, {
           selector: this.selector,
           mode: 'append'
+        })
+      },
+      chooseSelectorParent: function () {
+        this.$emit('isScraping', false, {
+          selector: this.selector,
+          mode: 'parent'
         })
       },
 

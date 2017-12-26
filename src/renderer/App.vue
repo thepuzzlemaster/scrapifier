@@ -54,7 +54,7 @@
         }
 
         this.scraping = scrapingObject
-        this.showAppend = false
+        this.showAppend = !isScraping
       },
       selectorInfo: function (options) {
         this.count = options.count
