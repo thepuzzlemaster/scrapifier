@@ -44,9 +44,9 @@
         console.log('App.startScraping', isScraping, options)
         var scrapingMode = options && options.mode
         var selector = options && options.selector
-        this.$store.commit('SET_SCRAPING', isScraping)
-        this.$store.commit('SET_SCRAPING_MODE', scrapingMode)
-        this.$store.commit('SET_SELECTOR', selector)
+        this.$store.commit('setScraping', isScraping)
+        this.$store.commit('setScrapingMode', scrapingMode)
+        this.$store.commit('setSelector', selector)
         this.showAppend = !isScraping
       },
       selectorInfo: function (options) {

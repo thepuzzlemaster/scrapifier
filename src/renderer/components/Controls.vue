@@ -84,7 +84,7 @@
         this.inputValue = event.target.value
       },
       selectElement: function () {
-        this.$store.commit('SET_SCRAPING', true)
+        this.$store.commit('setScraping', true)
       },
       appendSelector: function () {
         // this.$emit('isScraping', true, {

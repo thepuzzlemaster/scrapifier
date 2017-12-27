@@ -9,13 +9,13 @@ const getters = {
 }
 
 const mutations = {
-  SET_SCRAPING (state, isScraping) {
+  setScraping (state, isScraping) {
     state.isScraping = isScraping
   },
-  SET_SCRAPING_MODE (state, scrapingMode) {
+  setScrapingMode (state, scrapingMode) {
     state.scrapingMode = scrapingMode
   },
-  SET_SELECTOR (state, selector) {
+  setSelector (state, selector) {
     state.selector = (selector)
   }
 }
@@ -23,7 +23,7 @@ const mutations = {
 const actions = {
   someAsyncTask ({ commit }) {
     // do something async
-    commit('SET_SELECTOR', 'tbody tr.even')
+    commit('setSelector', 'tbody tr.even')
   }
 }
 

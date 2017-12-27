@@ -94,7 +94,7 @@
         }
 
         $(selector).addClass('selector-hover hover-secondary')
-        this.$store.commit('SET_SELECTOR', selector)
+        this.$store.commit('setSelector', selector)
         // this.$emit('selectorInfo', {
         //   count: $(selector).length,
         //   selector: selector,
