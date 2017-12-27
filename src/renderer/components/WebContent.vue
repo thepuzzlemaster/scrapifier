@@ -3,6 +3,7 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
   import cheerio from 'cheerio'
   import $ from 'jquery'
 
@@ -11,8 +12,7 @@
   export default {
     name: 'webContent',
     props: {
-      url: String,
-      scraping: Object
+      url: String
     },
     data: function () {
       return {
@@ -20,21 +20,26 @@
         currentSelector: ''
       }
     },
-    computed: {
-      selector () {
-        return this.scraping.selector
-      }
-    },
+    computed: mapState({
+      scraping (state) {
+        return {
+          isScraping: state.ScrapingData.isScraping,
+          scrapingMode: state.ScrapingData.scrapingMode,
+          selector: state.ScrapingData.selector
+        }
+      },
+      selector: state => state.ScrapingData.selector
+    }),
     watch: {
       scraping: function (newVal, oldVal) {
         if (newVal.scrapingMode === 'parent') {
           this.getParent()
         }
-        if (newVal.isScraping) {
+        if (newVal.isScraping && !oldVal.isScraping) {
           this.startScraping(newVal.selector)
         }
       },
-      selector: function (newVal, oldVal) {
+      selector (newVal, oldVal) {
         if (!this.scraping.isScraping) {
           this.addHighlight(null, null, newVal, true)
         }
@@ -42,7 +47,7 @@
     },
     methods: {
       startScraping: function (incomingSelector) {
-        // console.log('WebContent.startScraping', incomingSelector)
+        console.log('WebContent.startScraping', incomingSelector)
         this.currentSelector = incomingSelector || ''
         this.addHighlight(null, null, this.currentSelector)
         document.addEventListener('mousemove', this.moveHandler)
@@ -52,11 +57,11 @@
         let $parent = $(this.scraping.selector).parent()
 
         if ($parent[0]) {
-          this.$emit('selectorInfo', {
-            count: $parent.length,
-            selector: this.getSelector($parent),
-            showAppend: true
-          })
+          // this.$emit('selectorInfo', {
+          //   count: $parent.length,
+          //   selector: this.getSelector($parent),
+          //   showAppend: true
+          // })
         }
       },
 
@@ -89,11 +94,12 @@
         }
 
         $(selector).addClass('selector-hover hover-secondary')
-        this.$emit('selectorInfo', {
-          count: $(selector).length,
-          selector: selector,
-          showAppend: showAppend
-        })
+        this.$store.commit('SET_SELECTOR', selector)
+        // this.$emit('selectorInfo', {
+        //   count: $(selector).length,
+        //   selector: selector,
+        //   showAppend: showAppend
+        // })
       },
 
       //

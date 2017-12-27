@@ -31,6 +31,7 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
   import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
   import {
     faEdit,
@@ -44,7 +45,7 @@
     },
     props: {
       count: Number,
-      selector: String,
+      // selector: String,
       showAppend: Boolean,
       url: String
     },
@@ -71,35 +72,40 @@
       },
       iconUp () {
         return faLevelUpAlt
-      }
+      },
+      ...mapState({
+        selector: function (state) {
+          return this.$store.state.ScrapingData.selector
+        }
+      })
     },
     methods: {
       onInputChanged: function (event) {
         this.inputValue = event.target.value
       },
       selectElement: function () {
-        this.$emit('isScraping', true)
+        this.$store.commit('SET_SCRAPING', true)
       },
       appendSelector: function () {
-        this.$emit('isScraping', true, {
-          selector: this.selector,
-          mode: 'append'
-        })
+        // this.$emit('isScraping', true, {
+        //   selector: this.selector,
+        //   mode: 'append'
+        // })
       },
       chooseSelectorParent: function () {
-        this.$emit('isScraping', false, {
-          selector: this.selector,
-          mode: 'parent'
-        })
+        // this.$emit('isScraping', false, {
+        //   selector: this.selector,
+        //   mode: 'parent'
+        // })
       },
 
       useSelector: function () {
         // this.$electron.ipcRenderer.send('extract-data', this.selector)
       },
       submitSelector: function () {
-        this.$emit('selectorChange', {
-          selector: this.inputValue
-        })
+        // this.$emit('selectorChange', {
+        //   selector: this.inputValue
+        // })
       }
     },
     mounted: function () {
