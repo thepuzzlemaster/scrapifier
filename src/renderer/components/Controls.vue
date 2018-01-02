@@ -17,10 +17,10 @@
       </div>
       <ul class="unstyled">
         <li>
-          <a class="link" v-if="showAppend" v-on:click="chooseSelectorParent"><font-awesome-icon :icon="iconUp" /> Choose Parent</a>
+          <a class="link" v-if="showOptions" v-on:click="chooseSelectorParent"><font-awesome-icon :icon="iconUp" /> Choose Parent</a>
         </li>
         <li>
-          <a class="link" v-if="showAppend" v-on:click="appendSelector"><font-awesome-icon :icon="iconPlus" /> Append</a>
+          <a class="link" v-if="showOptions" v-on:click="appendSelector"><font-awesome-icon :icon="iconPlus" /> Append</a>
         </li>
       </ul>
       <hr>
@@ -44,9 +44,6 @@
       FontAwesomeIcon
     },
     props: {
-      count: Number,
-      // selector: String,
-      showAppend: Boolean,
       url: String
     },
     data: function () {
@@ -74,9 +71,9 @@
         return faLevelUpAlt
       },
       ...mapState({
-        selector: function (state) {
-          return this.$store.state.ScrapingData.selector
-        }
+        selector: state => state.ScrapingData.selector,
+        showOptions: state => state.ScrapingData.showOptions,
+        count: state => state.ScrapingData.count
       })
     },
     methods: {

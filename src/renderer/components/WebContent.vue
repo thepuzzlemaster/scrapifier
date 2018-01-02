@@ -57,17 +57,15 @@
         let $parent = $(this.scraping.selector).parent()
 
         if ($parent[0]) {
-          // this.$emit('selectorInfo', {
-          //   count: $parent.length,
-          //   selector: this.getSelector($parent),
-          //   showAppend: true
-          // })
+          this.$store.commit('setCount', $parent.length)
+          this.$store.commit('setShowOptions', true)
+          this.$store.commit('setSelector', this.getSelector($parent))
         }
       },
 
       //
       // HIGHLIGHT METHODS
-      addHighlight: function ($element, moveEvent, selector, showAppend) {
+      addHighlight: function ($element, moveEvent, selector, showOptions) {
         function removeHighlight () {
           $(this).removeClass('selector-hover')
           $(this).removeClass('hover-primary')
@@ -87,19 +85,15 @@
             document.removeEventListener('mousemove', this.moveHandler)
             event.preventDefault()
             $element.removeClass('hover-primary')
-            this.$emit('selectorClick', {
-              selector: selector
-            })
+            this.$store.commit('setSelector', selector)
+            this.$store.commit('setShowOptions', true)
           })
         }
 
         $(selector).addClass('selector-hover hover-secondary')
+        this.$store.commit('setCount', $(selector).length)
         this.$store.commit('setSelector', selector)
-        // this.$emit('selectorInfo', {
-        //   count: $(selector).length,
-        //   selector: selector,
-        //   showAppend: showAppend
-        // })
+        this.$store.commit('setShowOptions', showOptions)
       },
 
       //

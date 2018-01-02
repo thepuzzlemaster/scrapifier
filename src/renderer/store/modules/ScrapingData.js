@@ -1,7 +1,9 @@
 const state = {
+  count: 0,
   isScraping: false,
   scrapingMode: null,
-  selector: ''
+  selector: '',
+  showOptions: false
 }
 
 const getters = {
@@ -9,6 +11,9 @@ const getters = {
 }
 
 const mutations = {
+  setCount (state, count) {
+    state.count = count
+  },
   setScraping (state, isScraping) {
     state.isScraping = isScraping
   },
@@ -17,6 +22,9 @@ const mutations = {
   },
   setSelector (state, selector) {
     state.selector = (selector)
+  },
+  setShowOptions (state, showOptions) {
+    state.showOptions = showOptions
   }
 }
 
