@@ -97,9 +97,7 @@
         // this.$electron.ipcRenderer.send('extract-data', this.selector)
       },
       submitSelector: function () {
-        // this.$emit('selectorChange', {
-        //   selector: this.inputValue
-        // })
+        this.$store.commit('setSelector', this.inputValue)
       }
     },
     mounted: function () {
