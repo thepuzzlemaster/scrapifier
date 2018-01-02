@@ -21,26 +21,23 @@
       }
     },
     computed: mapState({
-      scraping (state) {
-        return {
-          isScraping: state.ScrapingData.isScraping,
-          scrapingMode: state.ScrapingData.scrapingMode,
-          selector: state.ScrapingData.selector
-        }
-      },
+      isScraping: state => state.ScrapingData.isScraping,
+      scrapingMode: state => state.ScrapingData.scrapingMode,
       selector: state => state.ScrapingData.selector
     }),
     watch: {
-      scraping: function (newVal, oldVal) {
-        if (newVal.scrapingMode === 'parent') {
+      scrapingMode: function (newVal, oldVal) {
+        if (newVal === 'parent') {
           this.getParent()
         }
-        if (newVal.isScraping && !oldVal.isScraping) {
-          this.startScraping(newVal.selector)
+      },
+      isScraping: function (newVal, oldVal) {
+        if (newVal && !oldVal) {
+          this.startScraping(this.selector)
         }
       },
       selector (newVal, oldVal) {
-        if (!this.scraping.isScraping) {
+        if (!this.isScraping) {
           this.addHighlight(null, null, newVal, true)
         }
       }
@@ -54,7 +51,7 @@
       },
 
       getParent: function () {
-        let $parent = $(this.scraping.selector).parent()
+        let $parent = $(this.selector).parent()
 
         if ($parent[0]) {
           this.$store.commit('setCount', $parent.length)
