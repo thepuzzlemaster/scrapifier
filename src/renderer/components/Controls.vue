@@ -84,10 +84,9 @@
         this.$store.commit('setScraping', true)
       },
       appendSelector: function () {
-        // this.$emit('isScraping', true, {
-        //   selector: this.selector,
-        //   mode: 'append'
-        // })
+        this.$store.commit('setSelector', this.selector)
+        this.$store.commit('setScrapingMode', 'append')
+        this.$store.commit('setScraping', true)
       },
       chooseSelectorParent: function () {
         // this.$emit('isScraping', false, {

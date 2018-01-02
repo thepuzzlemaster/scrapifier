@@ -87,6 +87,7 @@
             $element.removeClass('hover-primary')
             this.$store.commit('setSelector', selector)
             this.$store.commit('setShowOptions', true)
+            this.$store.commit('setScraping', false)
           })
         }
 
