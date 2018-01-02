@@ -165,14 +165,6 @@
       }).catch((error) => {
         console.log('error loading url', error)
       })
-
-      // this.$electron.ipcRenderer.on('selector-updated', (event, selector) => {
-      //   WebContent.addHighlight(null, null, selector, true)
-      // })
-
-      // this.$electron.ipcRenderer.on('extract-data', (event, selector) => {
-      //   WebContent.extractData()
-      // })
     }
   }
 </script>
