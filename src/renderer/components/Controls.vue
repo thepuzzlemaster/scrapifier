@@ -85,7 +85,6 @@
       },
       appendSelector: function () {
         this.$store.commit('setSelector', this.selector)
-        this.$store.commit('setScrapingMode', 'append')
         this.$store.commit('setScraping', true)
       },
       chooseSelectorParent: function () {

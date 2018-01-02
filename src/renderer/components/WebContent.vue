@@ -57,6 +57,7 @@
           this.$store.commit('setCount', $parent.length)
           this.$store.commit('setShowOptions', true)
           this.$store.commit('setSelector', this.getSelector($parent))
+          this.$store.commit('setScrapingMode', null)
         }
       },
 
