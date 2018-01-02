@@ -27,6 +27,9 @@
     },
     watch: {
       scraping: function (newVal, oldVal) {
+        if (newVal.scrapingMode === 'parent') {
+          this.getParent()
+        }
         if (newVal.isScraping) {
           this.startScraping(newVal.selector)
         }
@@ -43,6 +46,18 @@
         this.currentSelector = incomingSelector || ''
         this.addHighlight(null, null, this.currentSelector)
         document.addEventListener('mousemove', this.moveHandler)
+      },
+
+      getParent: function () {
+        let $parent = $(this.scraping.selector).parent()
+
+        if ($parent[0]) {
+          this.$emit('selectorInfo', {
+            count: $parent.length,
+            selector: this.getSelector($parent),
+            showAppend: true
+          })
+        }
       },
 
       //
