@@ -17,10 +17,10 @@
       </div>
       <ul class="unstyled">
         <li>
-          <a class="link" v-if="showAppend" v-on:click="chooseSelectorParent"><font-awesome-icon :icon="iconUp" /> Choose Parent</a>
+          <a class="link" v-if="showOptions" v-on:click="chooseSelectorParent"><font-awesome-icon :icon="iconUp" /> Choose Parent</a>
         </li>
         <li>
-          <a class="link" v-if="showAppend" v-on:click="appendSelector"><font-awesome-icon :icon="iconPlus" /> Append</a>
+          <a class="link" v-if="showOptions" v-on:click="appendSelector"><font-awesome-icon :icon="iconPlus" /> Append</a>
         </li>
       </ul>
       <hr>
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
   import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
   import {
     faEdit,
@@ -43,9 +44,6 @@
       FontAwesomeIcon
     },
     props: {
-      count: Number,
-      selector: String,
-      showAppend: Boolean,
       url: String
     },
     data: function () {
@@ -71,35 +69,35 @@
       },
       iconUp () {
         return faLevelUpAlt
-      }
+      },
+      ...mapState({
+        selector: state => state.ScrapingData.selector,
+        showOptions: state => state.ScrapingData.showOptions,
+        count: state => state.ScrapingData.count
+      })
     },
     methods: {
       onInputChanged: function (event) {
         this.inputValue = event.target.value
       },
       selectElement: function () {
-        this.$emit('isScraping', true)
+        this.$store.commit('setScraping', true)
       },
       appendSelector: function () {
-        this.$emit('isScraping', true, {
-          selector: this.selector,
-          mode: 'append'
-        })
+        this.$store.commit('setSelector', this.selector)
+        this.$store.commit('setScrapingMode', 'append')
+        this.$store.commit('setScraping', true)
       },
       chooseSelectorParent: function () {
-        this.$emit('isScraping', false, {
-          selector: this.selector,
-          mode: 'parent'
-        })
+        this.$store.commit('setSelector', this.selector)
+        this.$store.commit('setScrapingMode', 'parent')
       },
 
       useSelector: function () {
         // this.$electron.ipcRenderer.send('extract-data', this.selector)
       },
       submitSelector: function () {
-        this.$emit('selectorChange', {
-          selector: this.inputValue
-        })
+        this.$store.commit('setSelector', this.inputValue)
       }
     },
     mounted: function () {

@@ -3,6 +3,7 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
   import cheerio from 'cheerio'
   import $ from 'jquery'
 
@@ -11,8 +12,7 @@
   export default {
     name: 'webContent',
     props: {
-      url: String,
-      scraping: Object
+      url: String
     },
     data: function () {
       return {
@@ -20,49 +20,49 @@
         currentSelector: ''
       }
     },
-    computed: {
-      selector () {
-        return this.scraping.selector
-      }
-    },
+    computed: mapState({
+      isScraping: state => state.ScrapingData.isScraping,
+      scrapingMode: state => state.ScrapingData.scrapingMode,
+      selector: state => state.ScrapingData.selector
+    }),
     watch: {
-      scraping: function (newVal, oldVal) {
-        if (newVal.scrapingMode === 'parent') {
+      scrapingMode: function (newVal, oldVal) {
+        if (newVal === 'parent') {
           this.getParent()
         }
-        if (newVal.isScraping) {
-          this.startScraping(newVal.selector)
+      },
+      isScraping: function (newVal, oldVal) {
+        if (newVal && !oldVal) {
+          this.startScraping(this.selector)
         }
       },
-      selector: function (newVal, oldVal) {
-        if (!this.scraping.isScraping) {
+      selector (newVal, oldVal) {
+        if (!this.isScraping) {
           this.addHighlight(null, null, newVal, true)
         }
       }
     },
     methods: {
       startScraping: function (incomingSelector) {
-        // console.log('WebContent.startScraping', incomingSelector)
+        console.log('WebContent.startScraping', incomingSelector)
         this.currentSelector = incomingSelector || ''
         this.addHighlight(null, null, this.currentSelector)
         document.addEventListener('mousemove', this.moveHandler)
       },
 
       getParent: function () {
-        let $parent = $(this.scraping.selector).parent()
+        let $parent = $(this.selector).parent()
 
         if ($parent[0]) {
-          this.$emit('selectorInfo', {
-            count: $parent.length,
-            selector: this.getSelector($parent),
-            showAppend: true
-          })
+          this.$store.commit('setCount', $parent.length)
+          this.$store.commit('setShowOptions', true)
+          this.$store.commit('setSelector', this.getSelector($parent))
         }
       },
 
       //
       // HIGHLIGHT METHODS
-      addHighlight: function ($element, moveEvent, selector, showAppend) {
+      addHighlight: function ($element, moveEvent, selector, showOptions) {
         function removeHighlight () {
           $(this).removeClass('selector-hover')
           $(this).removeClass('hover-primary')
@@ -82,18 +82,16 @@
             document.removeEventListener('mousemove', this.moveHandler)
             event.preventDefault()
             $element.removeClass('hover-primary')
-            this.$emit('selectorClick', {
-              selector: selector
-            })
+            this.$store.commit('setSelector', selector)
+            this.$store.commit('setShowOptions', true)
+            this.$store.commit('setScraping', false)
           })
         }
 
         $(selector).addClass('selector-hover hover-secondary')
-        this.$emit('selectorInfo', {
-          count: $(selector).length,
-          selector: selector,
-          showAppend: showAppend
-        })
+        this.$store.commit('setCount', $(selector).length)
+        this.$store.commit('setSelector', selector)
+        this.$store.commit('setShowOptions', showOptions)
       },
 
       //
@@ -167,14 +165,6 @@
       }).catch((error) => {
         console.log('error loading url', error)
       })
-
-      // this.$electron.ipcRenderer.on('selector-updated', (event, selector) => {
-      //   WebContent.addHighlight(null, null, selector, true)
-      // })
-
-      // this.$electron.ipcRenderer.on('extract-data', (event, selector) => {
-      //   WebContent.extractData()
-      // })
     }
   }
 </script>
