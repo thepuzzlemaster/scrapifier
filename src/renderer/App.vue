@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <modal v-if="showModal" @close="showModal = false"></modal>
     <div class="container">
       <!-- <div id="page-container"> -->
         <!-- <object id="external-page" :data="url" type="text/html" style="width:100%; height:100%;"></object> -->
@@ -12,8 +13,7 @@
 </template>
 
 <script>
-  import Controls from './components/Controls'
-  import WebContent from './components/WebContent'
+  import { Controls, WebContent, Modal } from './components'
   import { mapState } from 'vuex'
 
   // import axios from 'axios'
@@ -21,11 +21,11 @@
 
   export default {
     name: 'scrapifier',
-    components: { Controls, WebContent },
+    components: { Controls, WebContent, Modal },
     data: function () {
       return {
         url: 'http://localhost:8889/www.dairiki.org/tides/monthly.php/sea',
-        showAppend: false
+        showModal: false
       }
     },
     computed: mapState({
