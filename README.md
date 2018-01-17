@@ -15,6 +15,7 @@ npm run dev
 npm run build
 
 Master Changes
+Master Changes #2
 
 # lint all JS/Vue component files in `src/`
 npm run lint
